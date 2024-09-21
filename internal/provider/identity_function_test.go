@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/tfversion"
 )
 
-func TestExampleFunction_Known(t *testing.T) {
+func TestIdentityFunction_Known(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
 			tfversion.SkipBelow(tfversion.Version1_8_0),
@@ -21,18 +21,18 @@ func TestExampleFunction_Known(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::example("testvalue")
+					value = provider::mastodon::identity("tedivm", "hachyderm.com")
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckOutput("test", "testvalue"),
+					resource.TestCheckOutput("test", "@tedivm@hachyderm.com"),
 				),
 			},
 		},
 	})
 }
 
-func TestExampleFunction_Null(t *testing.T) {
+func TestIdentityFunction_Null(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
 			tfversion.SkipBelow(tfversion.Version1_8_0),
@@ -42,7 +42,7 @@ func TestExampleFunction_Null(t *testing.T) {
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::example(null)
+					value = provider::mastodon::identity(null, null)
 				}
 				`,
 				// The parameter does not enable AllowNullValue
@@ -52,7 +52,7 @@ func TestExampleFunction_Null(t *testing.T) {
 	})
 }
 
-func TestExampleFunction_Unknown(t *testing.T) {
+func TestIdentityFunction_Unknown(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
 			tfversion.SkipBelow(tfversion.Version1_8_0),
@@ -62,15 +62,15 @@ func TestExampleFunction_Unknown(t *testing.T) {
 			{
 				Config: `
 				resource "terraform_data" "test" {
-					input = "testvalue"
+					input = "tedivm"
 				}
-				
+
 				output "test" {
-					value = provider::scaffolding::example(terraform_data.test.output)
+					value = provider::mastodon::identity(terraform_data.test.output, "hachyderm.com")
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckOutput("test", "testvalue"),
+					resource.TestCheckOutput("test", "@tedivm@hachyderm.com"),
 				),
 			},
 		},
