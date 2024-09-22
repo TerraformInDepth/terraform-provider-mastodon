@@ -42,11 +42,8 @@ jobs:
         with:
           go-version-file: "go.mod"
           cache: true
-      # Temporarily download Terraform 1.8 prerelease for function documentation support.
-      # When Terraform 1.8.0 final is released, this can be removed.
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.8.0"
           terraform_wrapper: false
       - run: go generate ./...
       - name: git diff
