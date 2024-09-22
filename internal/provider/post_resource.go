@@ -191,6 +191,11 @@ func (r *PostResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 	data.Visibility = types.StringValue(post.Visibility)
 	data.Sensitive = types.BoolValue(post.Sensitive)
 
+	// During imports the `preserve_on_destroy` attribute may not be set.
+	if data.PreserveOnDestroy.IsNull() {
+		data.PreserveOnDestroy = types.BoolValue(false)
+	}
+
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
