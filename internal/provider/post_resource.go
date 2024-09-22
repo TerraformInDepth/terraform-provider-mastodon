@@ -1,6 +1,3 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
 package provider
 
 import (
@@ -35,12 +32,13 @@ type PostResource struct {
 
 // PostResourceModel describes the resource data model.
 type PostResourceModel struct {
-	Id         types.String `tfsdk:"id"`
-	CreatedAt  types.String `tfsdk:"created_at"`
-	Account    types.String `tfsdk:"account"`
-	Content    types.String `tfsdk:"content"`
-	Visibility types.String `tfsdk:"visibility"`
-	Sensitive  types.Bool   `tfsdk:"sensitive"`
+	Id                types.String `tfsdk:"id"`
+	CreatedAt         types.String `tfsdk:"created_at"`
+	Account           types.String `tfsdk:"account"`
+	Content           types.String `tfsdk:"content"`
+	Visibility        types.String `tfsdk:"visibility"`
+	Sensitive         types.Bool   `tfsdk:"sensitive"`
+	PreserveOnDestroy types.Bool   `tfsdk:"preserve_on_destroy"`
 }
 
 func (r *PostResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -57,13 +55,13 @@ func (r *PostResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 				Computed:            true,
 				Required:            false,
 				Optional:            false,
-				MarkdownDescription: "Post identifier",
+				MarkdownDescription: "Unique identifier of the post.",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"created_at": schema.StringAttribute{
-				MarkdownDescription: "Post creation timestamp",
+				MarkdownDescription: "Timestamp of when the post was created.",
 				Computed:            true,
 				Required:            false,
 				Optional:            false,
@@ -81,17 +79,23 @@ func (r *PostResource) Schema(ctx context.Context, req resource.SchemaRequest, r
 				},
 			},
 			"content": schema.StringAttribute{
-				MarkdownDescription: "Post content",
+				MarkdownDescription: "The content of the post.",
 				Required:            true,
 			},
 			"visibility": schema.StringAttribute{
-				MarkdownDescription: "Post visibility",
+				MarkdownDescription: "The post visibility: can be `public`, `unlisted`, `private`, or `direct`.",
 				Optional:            true,
 				Computed:            true,
 				Default:             stringdefault.StaticString("public"),
 			},
 			"sensitive": schema.BoolAttribute{
-				MarkdownDescription: "Post sensitive",
+				MarkdownDescription: "Whether the post contains sensitive content.",
+				Optional:            true,
+				Computed:            true,
+				Default:             booldefault.StaticBool(false),
+			},
+			"preserve_on_destroy": schema.BoolAttribute{
+				MarkdownDescription: "When destroyed, preserve the post on the server.",
 				Optional:            true,
 				Computed:            true,
 				Default:             booldefault.StaticBool(false),
@@ -237,10 +241,15 @@ func (r *PostResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 		return
 	}
 
+	if data.PreserveOnDestroy.ValueBool() {
+		tflog.Debug(ctx, "preserve_on_destroy is enabled: preserving post on server.")
+		return
+	}
+
 	err := r.client.DeleteStatus(context.Background(), mastodon.ID(data.Id.ValueString()))
 
 	if err != nil {
-		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to create post, got error: %s", err))
+		resp.Diagnostics.AddError("Client Error", fmt.Sprintf("Unable to delete post, got error: %s", err))
 		return
 	}
 

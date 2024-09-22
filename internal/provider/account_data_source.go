@@ -1,6 +1,3 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
 package provider
 
 import (
@@ -47,36 +44,36 @@ func (d *AccountDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 
 		Attributes: map[string]schema.Attribute{
 			"username": schema.StringAttribute{
-				MarkdownDescription: "Account configurable attribute",
+				MarkdownDescription: "The username of the account to lookup. This should include the domain.",
 				Optional:            false,
 				Required:            true,
 			},
 			"id": schema.StringAttribute{
-				MarkdownDescription: "Account identifier",
+				MarkdownDescription: "A unique account identifier retrieved from the server.",
 				Computed:            true,
 				Optional:            false,
 				Required:            false,
 			},
 			"display_name": schema.StringAttribute{
-				MarkdownDescription: "",
+				MarkdownDescription: "The account's display name.",
 				Computed:            true,
 				Optional:            false,
 				Required:            false,
 			},
 			"note": schema.StringAttribute{
-				MarkdownDescription: "",
+				MarkdownDescription: "The note or biography of the account.",
 				Computed:            true,
 				Optional:            false,
 				Required:            false,
 			},
 			"locked": schema.BoolAttribute{
-				MarkdownDescription: "",
+				MarkdownDescription: "Whether the account is locked or not.",
 				Computed:            true,
 				Optional:            false,
 				Required:            false,
 			},
 			"bot": schema.BoolAttribute{
-				MarkdownDescription: "",
+				MarkdownDescription: "Whether the account is a bot or not.",
 				Computed:            true,
 				Optional:            false,
 				Required:            false,

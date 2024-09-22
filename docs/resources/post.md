@@ -17,15 +17,16 @@ Post resource
 
 ### Required
 
-- `content` (String) Post content
+- `content` (String) The content of the post.
 
 ### Optional
 
-- `sensitive` (Boolean) Post sensitive
-- `visibility` (String) Post visibility
+- `preserve_on_destroy` (Boolean) When destroyed, preserve the post on the server.
+- `sensitive` (Boolean) Whether the post contains sensitive content.
+- `visibility` (String) The post visibility: can be `public`, `unlisted`, `private`, or `direct`.
 
 ### Read-Only
 
 - `account` (String) Account that created the post
-- `created_at` (String) Post creation timestamp
-- `id` (String) Post identifier
+- `created_at` (String) Timestamp of when the post was created.
+- `id` (String) Unique identifier of the post.
