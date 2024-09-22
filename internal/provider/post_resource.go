@@ -48,7 +48,7 @@ func (r *PostResource) Metadata(ctx context.Context, req resource.MetadataReques
 func (r *PostResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "Post resource",
+		MarkdownDescription: "This resource is used to manage posts on a Mastodon instance.",
 
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{

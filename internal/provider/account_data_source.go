@@ -40,7 +40,7 @@ func (d *AccountDataSource) Metadata(ctx context.Context, req datasource.Metadat
 func (d *AccountDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "Account data source",
+		MarkdownDescription: "This data source can be used to look up accounts in the Fediverse.",
 
 		Attributes: map[string]schema.Attribute{
 			"username": schema.StringAttribute{

@@ -3,12 +3,12 @@
 page_title: "mastodon_account Data Source - mastodon"
 subcategory: ""
 description: |-
-  Account data source
+  This data source can be used to look up accounts in the Fediverse.
 ---
 
 # mastodon_account (Data Source)
 
-Account data source
+This data source can be used to look up accounts in the Fediverse.
 
 ## Example Usage
 
