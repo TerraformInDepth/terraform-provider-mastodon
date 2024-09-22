@@ -14,7 +14,7 @@ This resource is used to manage posts on a Mastodon instance.
 
 ```terraform
 resource "mastodon_post" "example" {
-  content = "I'm posting!"
+  content = "What a great day to post to the Fediverse from Terraform!"
 }
 ```
 
