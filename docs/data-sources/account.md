@@ -23,12 +23,12 @@ data "mastodon_account" "example" {
 
 ### Required
 
-- `username` (String) Account configurable attribute
+- `username` (String) The username of the account to lookup. This should include the domain.
 
 ### Read-Only
 
-- `bot` (Boolean)
-- `display_name` (String)
-- `id` (String) Account identifier
-- `locked` (Boolean)
-- `note` (String)
+- `bot` (Boolean) Whether the account is a bot or not.
+- `display_name` (String) The account's display name.
+- `id` (String) A unique account identifier retrieved from the server.
+- `locked` (Boolean) Whether the account is locked or not.
+- `note` (String) The note or biography of the account.
