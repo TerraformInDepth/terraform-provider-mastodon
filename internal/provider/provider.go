@@ -59,6 +59,7 @@ func (p *MastodonProvider) Schema(ctx context.Context, req provider.SchemaReques
 			"client_secret": schema.StringAttribute{
 				MarkdownDescription: "Client Secret for Mastodon App.",
 				Optional:            true,
+				Sensitive:           true,
 			},
 			"email": schema.StringAttribute{
 				MarkdownDescription: "Username to connect to the server as.",
@@ -73,7 +74,6 @@ func (p *MastodonProvider) Schema(ctx context.Context, req provider.SchemaReques
 				MarkdownDescription: "Password to use for connecting to the server.",
 				Optional:            true,
 				Sensitive:           true,
-				DeprecationMessage:  "Use email and password instead.",
 			},
 		},
 	}

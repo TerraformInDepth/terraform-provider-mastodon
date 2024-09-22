@@ -23,9 +23,9 @@ provider "mastodon" {
 
 ### Optional
 
-- `access_token` (String, Sensitive, Deprecated) Password to use for connecting to the server.
+- `access_token` (String, Sensitive) Password to use for connecting to the server.
 - `client_id` (String) Client ID for Mastodon App.
-- `client_secret` (String) Client Secret for Mastodon App.
+- `client_secret` (String, Sensitive) Client Secret for Mastodon App.
 - `email` (String) Username to connect to the server as.
 - `host` (String) Mastodon host to connect to.
 - `password` (String, Sensitive) Password to use for connecting to the server.
