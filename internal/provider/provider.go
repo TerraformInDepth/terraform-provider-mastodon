@@ -46,29 +46,29 @@ func (p *MastodonProvider) Schema(ctx context.Context, req provider.SchemaReques
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"host": schema.StringAttribute{
-				MarkdownDescription: "Mastodon host to connect to.",
+				MarkdownDescription: "Mastodon host to connect to. Can be designated by the `MASTODON_HOST` environment variable.",
 				Optional:            true,
 			},
 			"client_id": schema.StringAttribute{
-				MarkdownDescription: "Client ID for Mastodon App.",
+				MarkdownDescription: "Client ID for Mastodon App. Can be designated by the `MASTODON_CLIENT_ID` environment variable.",
 				Optional:            true,
 			},
 			"client_secret": schema.StringAttribute{
-				MarkdownDescription: "Client Secret for Mastodon App.",
+				MarkdownDescription: "Client Secret for Mastodon App. Can be designated by the `MASTODON_CLIENT_SECRET` environment variable.",
 				Optional:            true,
 				Sensitive:           true,
 			},
 			"email": schema.StringAttribute{
-				MarkdownDescription: "Username to connect to the server as.",
+				MarkdownDescription: "Username to connect to the server as. Can be designated by the `MASTODON_USER_EMAIL` environment variable.",
 				Optional:            true,
 			},
 			"password": schema.StringAttribute{
-				MarkdownDescription: "Password to use for connecting to the server.",
+				MarkdownDescription: "Password to use for connecting to the server. Can be designated by the `MASTODON_USER_PASSWORD` environment variable.",
 				Optional:            true,
 				Sensitive:           true,
 			},
 			"access_token": schema.StringAttribute{
-				MarkdownDescription: "Password to use for connecting to the server.",
+				MarkdownDescription: "Password to use for connecting to the server. Can be designated by the `MASTODON_ACCESS_TOKEN` environment variable.",
 				Optional:            true,
 				Sensitive:           true,
 			},
