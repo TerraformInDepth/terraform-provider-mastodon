@@ -226,14 +226,14 @@ func (p *MastodonProvider) Configure(ctx context.Context, req provider.Configure
 	tflog.Debug(ctx, "mastodon_provider current user: "+user.Acct)
 
 	if access_token != "" {
-		ctx = tflog.SetField(ctx, "mastodon_access_token", access_token)       //ANNO We can log the access token to help with debugging.
-		ctx = tflog.MaskFieldValuesWithFieldKeys(ctx, "mastodon_access_token") //ANNO We can also make sure to filter out the value from the logs.
+		ctx = tflog.SetField(ctx, "mastodon_access_token", access_token)
+		tflog.MaskFieldValuesWithFieldKeys(ctx, "mastodon_access_token")
 	} else if user_email != "" && user_password != "" {
 		ctx = tflog.SetField(ctx, "mastodon_user_email", user_email)
 		ctx = tflog.SetField(ctx, "mastodon_user_password", user_password)
-		ctx = tflog.MaskFieldValuesWithFieldKeys(ctx, "mastodon_user_password")
+		tflog.MaskFieldValuesWithFieldKeys(ctx, "mastodon_user_password")
 	} else {
-		resp.Diagnostics.AddAttributeError( //ANNO We can provide more than one error on the same flow.
+		resp.Diagnostics.AddAttributeError(
 			path.Root("user-access-token"),
 			"Missing Mastodon Credentials",
 			"The provider cannot create the Mastodon API client as neither the Access Token or the Username and Password fields are set.",
