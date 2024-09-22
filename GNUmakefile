@@ -9,3 +9,9 @@ testacc:
 docs:
 	@echo "Generating docs"
 	@go generate
+
+.PHONY: update_deps
+update_deps:
+	@echo "Updating dependencies"
+	@go get -u ./...
+	@go mod tidy
